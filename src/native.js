@@ -210,16 +210,6 @@ export default function mutator (initialState = {}) {
     return mutateNonArray(result);
   };
 
-  // function getAt (key) {
-  //   const prop = isFunction(key) ? key(root) : read(root, key);
-
-  //   if (prop === undefined) {
-  //     console.error({ key }, 'Attempted to get state for dot.string but the result was undefined. Ensemble works best when state is always initialised to some value.');
-  //   }
-
-  //   return prop;
-  // }
-
   const mutateSync = (result) => {
     mutate(result);
     applyPendingMerges();

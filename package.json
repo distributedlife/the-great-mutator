@@ -2,13 +2,20 @@
   "name": "the-great-mutator",
   "version": "1.0.0",
   "description": "Provides an interface to describe mutations on a state tree",
-  "main": "index.js",
+  "main": "native.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register -c -S -R spec **/*spec*.js",
     "predist": "rm -rf lib",
     "prepublish": "babel src --out-dir lib --sourceMaps inline --comments --copy-files",
     "lint": "eslint . --ext .js"
   },
+  "files": [
+    "lib",
+    "native.js",
+    "immutable.js",
+    "package.json",
+    "README.md",
+  ],
   "keywords": [
     "mutation",
     "state",
