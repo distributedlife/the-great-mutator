@@ -168,7 +168,8 @@ export default function mutator (initialState = {}) {
 
     let valueToApply = value;
     if (isFunction(value)) {
-      valueToApply = value(unwrap(dotString));
+      const fromPending = readNoWarning(pendingMerge, dotString);
+      valueToApply = value(fromPending ? fromPending : unwrap(dotString));
     }
 
     return set({}, dotString, valueToApply);

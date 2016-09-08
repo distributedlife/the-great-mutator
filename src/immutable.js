@@ -170,9 +170,13 @@ export default function theGreatMutator (initialState = {}, options = defaults) 
       return applyOnArrayElement(dotString, value);
     }
 
-    const c = unwrap(dotString);
+    let valueToApply = value;
+    if (isFunction(value)) {
+      const fromPending = readNoWarning(pendingMerge, dotString);
+      valueToApply = value(fromPending ? fromPending : unwrap(dotString));
+    }
 
-    return set({}, dotString, isFunction(value) ? value(c) : value);
+    return set({}, dotString, valueToApply);
   };
 
   function mutateNonArray (result) {

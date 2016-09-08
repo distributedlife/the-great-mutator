@@ -108,6 +108,16 @@ implementations.forEach(({name, code, out}) => {
           expect(out(mutator.get('controller.child.age'))).toBe(6);
         });
 
+        it('should should considered pending merges', () => {
+          mutator.mutate(['controller.child.age', happyBirthday]);
+          mutator.mutate(['controller.child.age', happyBirthday]);
+          mutator.mutate(['controller.child.age', happyBirthday]);
+
+          mutator.applyPendingMerges();
+
+          expect(out(mutator.get('controller.child.age'))).toBe(8);
+        });
+
         it('should work with adding to arrays', function () {
           mutator.mutate(['controller.list', addItem]);
 
