@@ -524,6 +524,8 @@ implementations.forEach(({name, code, out}) => {
         mutator2.mutate(['controller.start', 50]);
         mutator2.mutate({ something: 'darkside' });
 
+        mutator2.applyPendingMerges();
+
         expect(mutator2.flushChanges()).toEqual([]);
       })
     });

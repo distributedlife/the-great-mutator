@@ -83,7 +83,11 @@ function accessAndCloneState (node, key) {
   return prop;
 }
 
-export default function mutator (initialState = {}) {
+const defaults = {
+  trackChanges: true
+}
+
+export default function mutator (initialState = {}, options = defaults) {
   let root = initialState;
   let pendingMerge = {};
   const changes = [];
@@ -95,7 +99,9 @@ export default function mutator (initialState = {}) {
       return;
     }
 
-    changes.push(pendingMerge);
+    if (options.trackChanges) {
+      changes.push(pendingMerge);
+    }
 
     merge(root, pendingMerge, replaceArrayDontMerge);
     pendingMerge = {};
