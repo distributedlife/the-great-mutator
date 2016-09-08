@@ -1,6 +1,6 @@
 {
   "name": "the-great-mutator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides an interface to describe mutations on a state tree",
   "main": "native.js",
   "scripts": {
