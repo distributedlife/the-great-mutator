@@ -2,15 +2,14 @@
 
 > Describe mutations, get results! With batching and a change log.
 
-The great mutator is an wrapper around a state tree. It could be called a store. It's really an object. A `native` one or an [immutable](https://github.com/facebook/immutable-js) one.
+The great mutator is an wrapper around a state tree. It could be called a store. It's really an object.
 
 You can use this wrapper to describe mutations that will be staged until applied as a single change.
 
 Choose your backing structure:
 
 ```javascript
-import theGreatMutator from 'the-great-mutator/native';
-import theGreatMutator from 'the-great-mutator/immutable';
+import theGreatMutator from 'the-great-mutator';
 ```
 
 And create a great mutator.
@@ -123,14 +122,12 @@ state.get('top') //only applied on resolution and after batching
 
 # Reading Values
 
-You can get the root object (native or immutable) by asking for `all`. Or read a specific value using `get`. Get uses [ok-selector](https://github.com/distributedlife/ok-selector) under the hood so you can use `dot.strings.to.state` as well as `reference.arrays:1.items`.
+You can get the root object by asking for `all`. Or read a specific value using `get`. Get uses [ok-selector](https://github.com/distributedlife/ok-selector) under the hood so you can use `dot.strings.to.state` as well as `reference.arrays:1.items`.
 
 ```javascript
 state.all();
 state.get('path.to.some.state');
 ```
-
-The value returned by `all` or `get` will be with be `native` or `immutable` depending on which version you use. In either case literals are always literals.
 
 # Getting the changes
 
