@@ -24,7 +24,7 @@ const initialState = {
   counter: 0
 };
 
-const state = theGreatMutator();
+const state = theGreatMutator(initialState);
 ```
 
 # Mutating
