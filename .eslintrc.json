@@ -15,9 +15,6 @@
     }
     },
   "plugins": [],
-  "ecmaFeatures": {
-    "experimentalObjectRestSpread": true
-  },
   "rules": {
     "comma-dangle": ["error", "never"],
     "array-callback-return": "error",
@@ -95,9 +92,9 @@
     "no-trailing-spaces": "error",
     "no-underscore-dangle": ["error"],
     "no-unneeded-ternary": "error",
-    "quotes": ["error", "single", {"avoidEscape": true, "allowTemplateLiterals": true}],
+    "quotes": [2, "single", {"avoidEscape": true, "allowTemplateLiterals": true}],
     "semi": ["off", "always"],
-    "prefer-const": ["error", {"destructuring": "any", "ignoreReadBeforeAssign": true}],
+    "prefer-const": ["error", {"destructuring": "any", "ignoreReadBeforeAssign": false}],
     "no-var": ["error"],
     "prefer-template": ["error"],
     "arrow-parens": ["error", "always"],

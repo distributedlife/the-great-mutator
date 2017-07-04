@@ -109,11 +109,14 @@ export default function mutator (initialState = {}, options = defaults) {
 
   let applyResult;
   function applyPushAction (dotString, entries, value) {
-    return applyResult(dotString, entries.concat([value]));
+    const applyTo = readNoWarning(pendingMerge, dotString) || entries;
+    return applyResult(dotString, applyTo.concat([value]));
   }
 
   function applyPopAction (dotString, entries, value) {
-    return set({}, dotString, entries.filter((entry) => entry.id !== value.id));
+    const matchingValue = (entry) => entry.id !== value.id;
+    const applyTo = readNoWarning(pendingMerge, dotString) || entries;
+    return set({}, dotString, applyTo.filter(matchingValue));
   }
 
   function applyReplaceAction (dotString, entries, value) {

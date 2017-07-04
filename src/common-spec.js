@@ -3,12 +3,10 @@
 import expect from 'expect';
 import sinon from 'sinon';
 
-import immutableCode from './immutable';
 import nativeCode from './native';
 
 const implementations = [
-  { name: 'native', code: nativeCode, out: (res) => res },
-  { name: 'immutable', code: immutableCode, out: (res) => (res && res.toJS) ? res.toJS() : res }
+  { name: 'native', code: nativeCode, out: (res) => res }
 ];
 
 implementations.forEach(({name, code, out}) => {
@@ -199,6 +197,15 @@ implementations.forEach(({name, code, out}) => {
         expect(out(mutator.get('controller.list'))).toEqual([4, 5]);
       });
 
+      it('should support adding+ multiple times to same array', function () {
+        mutator.mutate(['controller.list+', 5]);
+        mutator.mutate(['controller.list+', 6]);
+
+        mutator.applyPendingMerges();
+
+        expect(out(mutator.get('controller.list'))).toEqual([4, 5, 6]);
+      });
+
       it('should support adding+ to arrays of arrays', function () {
         mutator.mutate(['controller.subPush:5.arr+', 5]);
 
@@ -227,6 +234,30 @@ implementations.forEach(({name, code, out}) => {
         expect(out(mutator.get('controller.idList'))).toEqual([{id: 4}]);
       });
 
+      it('should support removing- from the same array', function () {
+        mutator.mutate(['controller.idList-', {id: 3}]);
+        mutator.mutate(['controller.idList-', {id: 4}]);
+
+        mutator.applyPendingMerges();
+
+        expect(out(mutator.get('controller.idList'))).toEqual([]);
+      });
+
+      it('should support adding+ and removing- from same array', function () {
+        expect(out(mutator.get('controller.idList'))).toEqual(
+          [{id: 4}, {id: 3}]
+        );
+
+        mutator.mutate(['controller.idList+', {id: 12}]);
+        mutator.mutate(['controller.idList-', {id: 3}]);
+
+        mutator.applyPendingMerges();
+
+        expect(out(mutator.get('controller.idList'))).toEqual(
+          [{id: 4}, {id: 12}]
+        );
+      });
+
       it('should support modifying! arrays', function () {
         mutator.mutate(['controller.idList!', {id: 4, n: 'a'}]);
 
@@ -234,6 +265,17 @@ implementations.forEach(({name, code, out}) => {
 
         expect(out(mutator.get('controller.idList'))).toEqual([
           {id: 4, n: 'a'},
+          {id: 3}
+        ]);
+      });
+
+      it('should support modifying! array multiple times', function () {
+        mutator.mutate(['controller.idList!', {id: 4, n: 'v'}]);
+
+        mutator.applyPendingMerges();
+
+        expect(out(mutator.get('controller.idList'))).toEqual([
+          {id: 4, n: 'v'},
           {id: 3}
         ]);
       });

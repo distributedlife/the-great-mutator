@@ -2,7 +2,7 @@
   "name": "the-great-mutator",
   "version": "1.0.2",
   "description": "Provides an interface to describe mutations on a state tree",
-  "main": "native.js",
+  "main": "lib/native.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register -c -S -R spec **/*spec*.js",
     "predist": "rm -rf lib",
@@ -32,9 +32,10 @@
   },
   "homepage": "https://github.com/distributedlife/the-great-mutator#readme",
   "dependencies": {
+    "eslint": "^4.1.1",
     "is-promise": "^2.1.0",
     "lodash": "^4.15.0",
-    "ok-selector": "^1.0.0"
+    "ok-selector": "^2.0.1"
   },
   "peerDependencies": {
     "immutable": "^3.8.1"
