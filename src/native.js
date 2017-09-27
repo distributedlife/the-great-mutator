@@ -239,10 +239,12 @@ export default function mutator (initialState = {}, options = defaults) {
     applyPendingMerges,
     flushChanges: () => changes.splice(0),
     get: (key) => readAndWarnAboutMissingState(root, key),
-    mutate,
-    mutateBatch,
-    mutateBatchSync,
+    mutate: options.sync ? mutateSync : mutate,
     mutateSync,
+    mutateAsync: mutate,
+    mutateBatch: options.sync ? mutateBatchSync: mutateBatch,
+    mutateBatchSync,
+    mutateBatchASync: mutateBatch,
     set: (newRoot) => (root = newRoot)
   };
 }
